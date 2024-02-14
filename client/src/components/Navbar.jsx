@@ -5,6 +5,14 @@ import { useStateContext } from '../context';
 import { CustomButton } from './';
 import { logo, menu, search, thirdweb } from '../assets';
 import { navlinks } from '../constants';
+import {
+  ThirdwebProvider,
+  metamaskWallet,
+  coinbaseWallet,
+  walletConnect,
+  trustWallet,
+  darkTheme,
+} from "@thirdweb-dev/react";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -13,6 +21,16 @@ const Navbar = () => {
   const { connect, address } = useStateContext();
 
   return (
+    <ThirdwebProvider
+      activeChain="mumbai"
+      clientId="d09da3505d4cdd653eda1db91ed0ab29"
+      supportedWallets={[
+        metamaskWallet({ recommended: true }),
+        coinbaseWallet(),
+        walletConnect(),
+        trustWallet(),
+      ]}
+    >
     <div className="flex md:flex-row flex-col-reverse justify-between mb-[35px] gap-6">
       <div className="lg:flex-1 flex flex-row max-w-[458px] py-2 pl-4 pr-2 h-[52px] bg-[#1c1c24] rounded-[100px]">
         <input type="text" placeholder="Search for campaigns" className="flex w-full font-epilogue font-normal text-[14px] placeholder:text-[#4b5264] text-white bg-transparent outline-none" />
@@ -23,7 +41,25 @@ const Navbar = () => {
       </div>
 
       <div className="sm:flex hidden flex-row justify-end gap-4">
-      <ConnectWallet />
+      <ConnectWallet
+        theme={darkTheme({
+          colors: {
+            modalBg: "#13131a",
+            dropdownBg: "#13131a",
+            primaryText: "#ffffff",
+          },
+        })}
+        btnTitle={"Connect"}
+        switchToActiveChain={true}
+        modalTitle={"Hi There !!"}
+        modalSize={"wide"}
+        welcomeScreen={{
+          title: "MMhum",
+          subtitle: "OK",
+        }}
+        modalTitleIconUrl={""}
+        showThirdwebBranding={false}
+      />
 
         <Link to="/profile">
           <div className="w-[52px] h-[52px] rounded-full bg-[#2c2f32] flex justify-center items-center cursor-pointer">
@@ -83,6 +119,7 @@ const Navbar = () => {
           </div>
         </div>
     </div>
+    </ThirdwebProvider>
   )
 }
 
