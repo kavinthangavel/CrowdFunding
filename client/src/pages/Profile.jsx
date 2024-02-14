@@ -9,16 +9,16 @@ const Profile = () => {
 
   const { address, contract, getUserCampaigns } = useStateContext();
 
-  const fetchCampaigns = async () => {
-    setIsLoading(true);
-    const data = await getUserCampaigns();
-    setCampaigns(data);
-    setIsLoading(false);
-  }
-
   useEffect(() => {
+    const fetchCampaigns = async () => {
+      setIsLoading(true);
+      const data = await getUserCampaigns();
+      setCampaigns(data);
+      setIsLoading(false);
+    }
+
     if(contract) fetchCampaigns();
-  }, [address, contract]);
+  }, [address, contract, getUserCampaigns]);
 
   return (
     <DisplayCampaigns 

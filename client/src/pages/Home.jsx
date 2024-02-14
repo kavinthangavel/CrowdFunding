@@ -9,16 +9,16 @@ const Home = () => {
 
   const { address, contract, getCampaigns } = useStateContext();
 
-  const fetchCampaigns = async () => {
-    setIsLoading(true);
-    const data = await getCampaigns();
-    setCampaigns(data);
-    setIsLoading(false);
-  }
-
   useEffect(() => {
+    const fetchCampaigns = async () => {
+      setIsLoading(true);
+      const data = await getCampaigns();
+      setCampaigns(data);
+      setIsLoading(false);
+    }
+
     if(contract) fetchCampaigns();
-  }, [address, contract]);
+  }, [address, contract, getCampaigns, setIsLoading, setCampaigns]);
 
   return (
     <DisplayCampaigns 
