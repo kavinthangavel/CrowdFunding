@@ -1,4 +1,4 @@
-## Getting Started
+## Getting Started with Web3
 
 Create a project using this example:
 
